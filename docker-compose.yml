@@ -1,0 +1,30 @@
+services:
+  app:
+    build: .
+    environment:
+      DIARY_STORAGE: postgres
+      DIARY_DATABASE_URL: postgresql://diary:diary@db:5432/driver_shift_diary
+      DIARY_UTC_OFFSET_HOURS: 5
+      DIARY_LOG_LEVEL: INFO
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: driver_shift_diary
+      POSTGRES_USER: diary
+      POSTGRES_PASSWORD: diary
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U diary -d driver_shift_diary"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:

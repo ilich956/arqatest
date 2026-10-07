@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Driver Shift Diary</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>Driver Shift Diary</h1>
+      <nav class="day-nav" aria-label="Day selection">
+        <button id="prev-day" class="btn" aria-label="Previous day">&larr;</button>
+        <input id="day-input" type="date" aria-label="Day">
+        <button id="next-day" class="btn" aria-label="Next day">&rarr;</button>
+        <button id="today" class="btn btn-ghost">Today</button>
+      </nav>
+    </header>
+
+    <section id="summary" class="summary" aria-live="polite"></section>
+
+    <section class="panel">
+      <h2>Trips</h2>
+      <ul id="trips" class="trips"></ul>
+      <p id="empty" class="muted" hidden>No trips on this day.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Add a trip</h2>
+      <form id="trip-form" class="form" novalidate>
+        <label>Start <input id="f-start" type="datetime-local" required></label>
+        <label>End <input id="f-end" type="datetime-local" required></label>
+        <label>Amount, ₸ <input id="f-amount" type="number" min="1" step="1" required></label>
+        <label>Commission, ₸ <input id="f-commission" type="number" min="0" step="1" required></label>
+        <label>Payment
+          <select id="f-payment">
+            <option value="card">Card</option>
+            <option value="cash">Cash</option>
+          </select>
+        </label>
+        <button class="btn btn-primary" type="submit">Add trip</button>
+      </form>
+      <p id="message" class="message" role="status" hidden></p>
+    </section>
+  </main>
+  <script src="app.js" type="module"></script>
+</body>
+</html>
